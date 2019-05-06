@@ -11,7 +11,7 @@ namespace GestaoTCC
     class Program
     {
         public static List<Aluno> listAlunos = new List<Aluno>();
-        public static Pesquisa[] arrayPesq;
+        public static List<Pesquisa> listPesq = new List<Pesquisa>();
         static void Main(string[] args)
         {
             Console.Clear();
@@ -52,29 +52,24 @@ namespace GestaoTCC
         {
             try
             {
-                int length = getFileLength(path), pos=0;
-                arrayPesq = new Pesquisa[length];
                 StreamReader file = new StreamReader(path);
                 string linha = file.ReadLine();
                 string[] separador;
+                string[] aux;
                 while (linha != null)
                 {
                     separador = linha.Split(' ');
                     for (int i = 0; i < separador.Length; i++)
                     {
-                        Console.Write(separador[i]);
-                        /*Pesquisa pesquisa = null;
-                        if(separador[i] != " ")
-                        {
-                            pesquisa = new Pesquisa(i, separador);   
-                        }
                         Console.Write(separador[i] + " ");
-                        arrayPesq[pos] = pesquisa;*/
+                        /*aux = separador[i].Split(' ');
+                        Console.WriteLine(aux[0] + "aux");*/
+
+                        listPesq.Add(new Pesquisa(listAlunos[i].Cod_pesq, separador));
                     }
                     Console.Write("\n");
                     //Console.Write(arrayPesq[pos]);
                     linha = file.ReadLine();
-                    pos++;
                 }
             }
             catch (Exception e)
