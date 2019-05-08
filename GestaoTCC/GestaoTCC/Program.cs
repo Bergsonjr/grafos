@@ -64,7 +64,7 @@ namespace GestaoTCC
                         Console.Write(separador[i] + " ");
                         /*aux = separador[i].Split(' ');
                         Console.WriteLine(aux[0] + "aux");*/
-
+                        transformArray(separador);
                         listPesq.Add(new Pesquisa(listAlunos[i].Cod_pesq, separador));
                     }
                     Console.Write("\n");
@@ -97,6 +97,17 @@ namespace GestaoTCC
             {
                 throw new Exception();
             }
+        }
+
+        public static string[] transformArray(string[] array)
+        {
+            string []transform = new string[array.Length-1];
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (i > 0) transform[i - 1] = array[i];
+                Console.WriteLine(array[i] + "transform");
+            }
+            return transform;
         }
     }
 }
