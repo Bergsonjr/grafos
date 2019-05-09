@@ -47,6 +47,7 @@
     <Compile Include="Grafo.cs" />
     <Compile Include="Grupo.cs" />
     <Compile Include="Pesquisa.cs" />
+    <Compile Include="Professor.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

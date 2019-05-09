@@ -11,33 +11,37 @@ namespace GestaoTCC
     class Program
     {
         public static List<Aluno> listAlunos = new List<Aluno>();
+        public static List<Professor> listProf = new List<Professor>();
         public static List<Pesquisa> listPesq = new List<Pesquisa>();
         static void Main(string[] args)
         {
             Console.Clear();
             string pathAluno = "Dados_Aluno.txt";
+            string pathName = "Nomes_Aluno.txt";
             string pathMatriz = "Matriz_Dissimilaridade.txt";
 
-            readFileAluno(pathAluno);
+            readFileAluno(pathAluno, pathName);
             readFileMatriz(pathMatriz);
 
             Console.ReadKey();
         }
 
-        public static void readFileAluno(string path)
+        public static void readFileAluno(string path, string pathName)
         {
             try
             {
-                StreamReader file = new StreamReader(path);
-                string linha = file.ReadLine();
+                StreamReader fileCod = new StreamReader(path);
+                StreamReader fileName = new StreamReader(pathName);
+                string linha = fileCod.ReadLine();
+                string linha2 = fileName.ReadLine();
                 string[] separador;
             
                 while (linha != null)
                 {
-                    
                     separador = linha.Split(' ');
-                    listAlunos.Add(new Aluno(int.Parse(separador[0]), int.Parse(separador[1])));
-                    linha = file.ReadLine();
+                    listAlunos.Add(new Aluno(int.Parse(separador[0]), int.Parse(separador[1]), linha2));
+                    linha = fileCod.ReadLine();
+                    linha2 = fileName.ReadLine();
                 }
             }
             catch (Exception e)
@@ -55,20 +59,12 @@ namespace GestaoTCC
                 StreamReader file = new StreamReader(path);
                 string linha = file.ReadLine();
                 string[] separador;
-                string[] aux;
+                int i = 0;
                 while (linha != null)
                 {
                     separador = linha.Split(' ');
-                    for (int i = 0; i < separador.Length; i++)
-                    {
-                        Console.Write(separador[i] + " ");
-                        /*aux = separador[i].Split(' ');
-                        Console.WriteLine(aux[0] + "aux");*/
-                        transformArray(separador);
-                        listPesq.Add(new Pesquisa(listAlunos[i].Cod_pesq, separador));
-                    }
-                    Console.Write("\n");
-                    //Console.Write(arrayPesq[pos]);
+                    listPesq.Add(new Pesquisa(listAlunos[i].Cod_pesq, transformArray(separador)));
+                    i++;
                     linha = file.ReadLine();
                 }
             }
@@ -79,6 +75,27 @@ namespace GestaoTCC
                 Console.Write("Pressione enter para reiniciar");
             }
             
+        }
+
+        public static void readFileOrientadores(string path)
+        {
+            try
+            {
+                StreamReader file = new StreamReader(path);
+                string linha = file.ReadLine();
+                while (linha != null)
+                {
+                    listProf.Add(new Professor(linha));
+                    linha = file.ReadLine();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.Clear();
+                Console.WriteLine(e.Message);
+                Console.Write("Pressione enter para reiniciar");
+            }
+
         }
 
         public static int getFileLength(string path)

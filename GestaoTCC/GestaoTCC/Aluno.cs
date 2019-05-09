@@ -10,14 +10,17 @@ namespace GestaoTCC
     {
         int cod_aluno;
         int cod_pesq;
-
-        public Aluno(int cod, int pesq)
-        {
-            this.cod_aluno = cod;
-            this.cod_pesq = pesq;
-        }
+        string nome;
 
         public int Cod_aluno { get => cod_aluno; set => cod_aluno = value; }
         public int Cod_pesq { get => cod_pesq; set => cod_pesq = value; }
+        public string Nome { get => nome; set => nome = value; }
+
+        public Aluno(int cod, int pesq, string name)
+        {
+            this.cod_aluno = cod;
+            this.cod_pesq = pesq;
+            this.nome = name;
+        }
     }
 }
