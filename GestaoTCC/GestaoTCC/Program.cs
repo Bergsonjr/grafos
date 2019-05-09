@@ -10,19 +10,25 @@ namespace GestaoTCC
 {
     class Program
     {
+        //ESTRUTURA DE DADOS
         public static List<Aluno> listAlunos = new List<Aluno>();
         public static List<Professor> listProf = new List<Professor>();
         public static List<Pesquisa> listPesq = new List<Pesquisa>();
+        //K(QUANTIDADE) - CLUSTER
+        public static int K = listProf.Count;
+        public static int maxCount = 100 / K;
         static void Main(string[] args)
         {
             Console.Clear();
             string pathAluno = "Dados_Aluno.txt";
             string pathName = "Nomes_Aluno.txt";
             string pathMatriz = "Matriz_Dissimilaridade.txt";
+            string pathProf = "Orientadores.txt";
 
             readFileAluno(pathAluno, pathName);
             readFileMatriz(pathMatriz);
-
+            readFileOrientadores(pathProf);
+            
             Console.ReadKey();
         }
 
