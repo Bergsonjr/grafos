@@ -8,5 +8,20 @@ namespace GestaoTCC
 {
     class Grafo
     {
+        public Grafo() { }
+
+        public void setTuplas()
+        {
+            foreach (var prof in Program.listProf)
+            {
+                Grupo group = new Grupo(prof);
+                foreach (var aluno in Program.listAlunos)
+                {
+                    //implementar add de acordo com a matriz dissimilaridade
+                    group.Integrantes.Add(aluno);
+                }
+                Program.gruposTCC.Add(group);
+            }
+        }
     }
 }

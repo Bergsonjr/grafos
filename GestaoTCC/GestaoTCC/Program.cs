@@ -11,6 +11,7 @@ namespace GestaoTCC
     class Program
     {
         //ESTRUTURA DE DADOS
+        public static List<Grupo> gruposTCC = new List<Grupo>();
         public static List<Aluno> listAlunos = new List<Aluno>();
         public static List<Professor> listProf = new List<Professor>();
         public static List<Pesquisa> listPesq = new List<Pesquisa>();

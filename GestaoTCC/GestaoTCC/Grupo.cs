@@ -20,6 +20,11 @@ namespace GestaoTCC
             this.integrantes = alunos;
         }
 
+        public Grupo(Professor orientador)
+        {
+            this.orientador = orientador;
+        }
+
         public void ImprimeGrupo()
         {
             Console.WriteLine(" Orientador: \n" + this.Orientador.Nome);
