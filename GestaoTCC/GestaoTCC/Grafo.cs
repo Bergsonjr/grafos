@@ -9,7 +9,7 @@ namespace GestaoTCC
     class Grafo
     {
         public Grafo() { }
-
+        //implementar algoritmos aqui
         public void setTuplas()
         {
             foreach (var prof in Program.listProf)
