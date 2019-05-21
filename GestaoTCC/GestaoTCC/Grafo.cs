@@ -18,6 +18,7 @@ namespace GestaoTCC
                 foreach (var aluno in Program.listAlunos)
                 {
                     //implementar add de acordo com a matriz dissimilaridade
+                    //implementar algoritmo de prim
                     group.Integrantes.Add(aluno);
                 }
                 Program.gruposTCC.Add(group);
