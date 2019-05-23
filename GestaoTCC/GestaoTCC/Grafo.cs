@@ -37,7 +37,7 @@ namespace GestaoTCC
                 {
                     if (pesq.Cod_pesq == aluno.Cod_pesq)
                     {
-
+                        //calcular o indice de clusterização
                     }
                 }
             }
