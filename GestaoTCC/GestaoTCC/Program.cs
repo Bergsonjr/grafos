@@ -16,8 +16,7 @@ namespace GestaoTCC
         public static List<Professor> listProf = new List<Professor>();
         public static List<Pesquisa> listPesq = new List<Pesquisa>();
         //K(QUANTIDADE) - CLUSTER
-        public static int K = listProf.Count;
-        public static int maxCount = 100 / K;
+        public static int K = listAlunos.Count;
         static void Main(string[] args)
         {
             Console.Clear();

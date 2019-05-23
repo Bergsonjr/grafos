@@ -8,6 +8,10 @@ namespace GestaoTCC
 {
     class Grafo
     {
+        int totalConnections;
+
+        public int TotalConnections { get => totalConnections; set => totalConnections = value; }
+
         public Grafo() { }
         //implementar algoritmos aqui
         public void setTuplas()
@@ -23,6 +27,25 @@ namespace GestaoTCC
                 }
                 Program.gruposTCC.Add(group);
             }
+        }
+
+        public void setClusters()
+        {
+            foreach (var aluno in Program.listAlunos)
+            {
+                foreach (var pesq in Program.listPesq)
+                {
+                    if (pesq.Cod_pesq == aluno.Cod_pesq)
+                    {
+
+                    }
+                }
+            }
+        }
+
+        public void setTotalConnections()
+        {
+            TotalConnections = (Program.K * (Program.K - 1))/ 2; // máximo de conexões possíveis entre alunos
         }
     }
 }
