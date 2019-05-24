@@ -9,8 +9,10 @@ namespace GestaoTCC
     class Grafo
     {
         int totalConnections;
+        bool isFull;
 
         public int TotalConnections { get => totalConnections; set => totalConnections = value; }
+        public bool IsFull { get => isFull; set => isFull = value; }
 
         public Grafo() { }
         //implementar algoritmos aqui
@@ -25,12 +27,14 @@ namespace GestaoTCC
                     //implementar algoritmo de prim
                     group.Integrantes.Add(aluno);
                 }
-                Program.gruposTCC.Add(group);
+                //Program.gruposTCC.Add(group);
             }
         }
 
         public void setClusters()
         {
+            int value = 0;
+            this.setTotalConnections();
             foreach (var aluno in Program.listAlunos)
             {
                 foreach (var pesq in Program.listPesq)
@@ -38,14 +42,69 @@ namespace GestaoTCC
                     if (pesq.Cod_pesq == aluno.Cod_pesq)
                     {
                         //calcular o indice de clusterização
+                        foreach (var val in pesq.Similaridade)
+                        {
+                            if (val > -1 && val < 1)
+                            {
+                                value++;
+                            }
+                        }
+                        aluno.Cluster = value / this.TotalConnections;
                     }
                 }
             }
+            this.buildGroups();
         }
 
         public void setTotalConnections()
         {
             TotalConnections = (Program.K * (Program.K - 1))/ 2; // máximo de conexões possíveis entre alunos
+        }
+
+        public void buildGroups()
+        {
+            Aluno aluno = this.getMostClustering();
+            Grupo grupo = new Grupo();
+            
+            grupo.Integrantes.Add(aluno);
+            aluno.IsAlocated = true;
+
+            foreach (var integrante in Program.listAlunos)
+            {
+                foreach (var pesquisa in Program.listPesq)
+                {
+                    if (pesquisa.Similaridade[integrante.Cod_pesq].Equals(0) && !integrante.IsAlocated)
+                    {
+                        integrante.IsAlocated = true;
+                        grupo.Integrantes.Add(integrante);
+                    }
+                }
+            }
+            Program.listGrupos.Add(grupo);
+
+            foreach (var classmate in Program.listAlunos)
+            {
+                if (!classmate.IsAlocated)
+                {
+                    //this.IsFull = false;
+                    this.buildGroups();
+                }
+            }
+        }
+
+        public Aluno getMostClustering()
+        {
+            Aluno bigCluster = null;
+            int value = int.MinValue;
+
+            foreach (var aluno in Program.listAlunos)
+            {
+                if(aluno.Cluster > value && !aluno.IsAlocated)
+                {
+                    bigCluster = aluno;
+                }
+            }
+            return bigCluster;
         }
     }
 }

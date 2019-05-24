@@ -25,14 +25,20 @@ namespace GestaoTCC
             this.orientador = orientador;
         }
 
+        public Grupo() { }
+
         public void ImprimeGrupo()
         {
-            Console.WriteLine(" Orientador: \n" + this.Orientador.Nome);
-            Console.WriteLine("\n Alunos: ");
-            foreach (var aluno in this.Integrantes)
+            foreach (var grupo in Program.listGrupos)
             {
-                Console.WriteLine(aluno.Nome);
+                Console.WriteLine(" Orientador: \n" + grupo.Orientador.Nome);
+                Console.WriteLine("\n Alunos: ");
+                foreach (var aluno in grupo.Integrantes)
+                {
+                    Console.WriteLine(aluno.Nome);
+                }
             }
+            Console.WriteLine("\n -----------------");
         }
     }
 }

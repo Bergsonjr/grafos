@@ -11,10 +11,11 @@ namespace GestaoTCC
     class Program
     {
         //ESTRUTURA DE DADOS
-        public static List<Grupo> gruposTCC = new List<Grupo>();
+        //public static List<Grupo> gruposTCC = new List<Grupo>();
         public static List<Aluno> listAlunos = new List<Aluno>();
         public static List<Professor> listProf = new List<Professor>();
         public static List<Pesquisa> listPesq = new List<Pesquisa>();
+        public static List<Grupo> listGrupos = new List<Grupo>();
         //K(QUANTIDADE) - CLUSTER
         public static int K = listAlunos.Count;
         static void Main(string[] args)
@@ -25,9 +26,19 @@ namespace GestaoTCC
             string pathMatriz = "Matriz_Dissimilaridade.txt";
             string pathProf = "Orientadores.txt";
 
+            //readFiles
             readFileAluno(pathAluno, pathName);
             readFileMatriz(pathMatriz);
             readFileOrientadores(pathProf);
+
+            //Grafo
+            Pesquisa pesquisa = new Pesquisa();
+            Grafo grafo = new Grafo();
+            Grupo a = new Grupo();
+
+            pesquisa.setSimilaridade();
+            grafo.setClusters();
+            a.ImprimeGrupo();
             
             Console.ReadKey();
         }
@@ -45,9 +56,9 @@ namespace GestaoTCC
                 while (linha != null)
                 {
                     separador = linha.Split(' ');
-                    listAlunos.Add(new Aluno(int.Parse(separador[0]), int.Parse(separador[1]), linha2));
-                    linha = fileCod.ReadLine();
                     linha2 = fileName.ReadLine();
+                    listAlunos.Add(new Aluno(int.Parse(separador[0]), int.Parse(separador[1]), linha2));
+                    linha = fileCod.ReadLine(); 
                 }
             }
             catch (Exception e)
@@ -68,7 +79,8 @@ namespace GestaoTCC
                 int i = 0;
                 while (linha != null)
                 {
-                    separador = linha.Split(' ');
+                    //linha.Replace(' ', ',');  
+                    separador = linha.TrimStart(' ').Split(' ');
                     listPesq.Add(new Pesquisa(listAlunos[i].Cod_pesq, transformArray(separador)));
                     i++;
                     linha = file.ReadLine();
@@ -128,7 +140,6 @@ namespace GestaoTCC
             for (int i = 0; i < array.Length; i++)
             {
                 if (i > 0) transform[i - 1] = array[i];
-                Console.WriteLine(array[i] + "transform");
             }
             return transform;
         }
