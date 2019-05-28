@@ -14,31 +14,42 @@ namespace GestaoTCC
 
         public int Cod_pesq { get => cod_pesq; set => cod_pesq = value; }
         public string[] Similar { get => similar; set => similar = value; }
-        public List<int> Similaridade { get => similaridade; set => similaridade = value; }
+        public List<int> Similaridade { get { return similaridade; } set => similaridade = value; }
 
         public Pesquisa(int cod, string[] areas)
         {
             this.cod_pesq = cod;
             this.similar = areas;
+            this.similaridade = new List<int>();
         }
 
-        public Pesquisa() { }
+        public Pesquisa() {  }
 
         public void setSimilaridade()
         {
             foreach (var pesquisa in Program.listPesq)
             {
-                for (int i = 0; i < Program.listPesq.Count; i++)
+                if (pesquisa.Cod_pesq == 1)
                 {
-                    if(i == 0)
+                    for (int j = 0; j < pesquisa.Similar.Length; j++)
                     {
-                        pesquisa.Similaridade.Add(pesquisa.Cod_pesq);
+                        pesquisa.Similaridade.Add(int.Parse(pesquisa.similar[j]));
                     }
-                    else
+                }
+                else
+                {
+                    //adiciona a similaridade de todos anteriores
+                    for (int i = 1; i < pesquisa.Cod_pesq; i++)
                     {
-                        var item = Program.listPesq.Last();
-                        int value = item.Similaridade[pesquisa.Cod_pesq];
-                        pesquisa.Similaridade.Add(value);
+                        var item = Program.listPesq[i - 1]; //pega o anterior na lista
+                        int value = int.Parse(item.similar[pesquisa.Cod_pesq - i]); //procura no anterior o valor de sua similaridade
+                        pesquisa.Similaridade.Add(value); //adiciona o valor da similaridade na sua lista
+                    }
+                    
+                    //preenche a lista com os valores já lidos do arquivo
+                    for (int k = 0; k < pesquisa.Similar.Length; k++)
+                    {
+                        pesquisa.Similaridade.Add(int.Parse(pesquisa.similar[k]));
                     }
                 }
             }

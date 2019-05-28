@@ -33,7 +33,7 @@ namespace GestaoTCC
 
         public void setClusters()
         {
-            int value = 0;
+            double value = 0;
             this.setTotalConnections();
             foreach (var aluno in Program.listAlunos)
             {
@@ -49,7 +49,8 @@ namespace GestaoTCC
                                 value++;
                             }
                         }
-                        aluno.Cluster = value / this.TotalConnections;
+                        aluno.Cluster = (double)(value / this.TotalConnections);
+                        value = 0;
                     }
                 }
             }

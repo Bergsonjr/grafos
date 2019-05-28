@@ -17,7 +17,7 @@ namespace GestaoTCC
         public static List<Pesquisa> listPesq = new List<Pesquisa>();
         public static List<Grupo> listGrupos = new List<Grupo>();
         //K(QUANTIDADE) - CLUSTER
-        public static int K = listAlunos.Count;
+        public static int K;
         static void Main(string[] args)
         {
             Console.Clear();
@@ -60,6 +60,7 @@ namespace GestaoTCC
                     listAlunos.Add(new Aluno(int.Parse(separador[0]), int.Parse(separador[1]), linha2));
                     linha = fileCod.ReadLine(); 
                 }
+                K = listAlunos.Count;
             }
             catch (Exception e)
             {
@@ -81,7 +82,7 @@ namespace GestaoTCC
                 {
                     //linha.Replace(' ', ',');  
                     separador = linha.TrimStart(' ').Split(' ');
-                    listPesq.Add(new Pesquisa(listAlunos[i].Cod_pesq, transformArray(separador)));
+                    listPesq.Add(new Pesquisa((i + 1), transformArray(separador)));
                     i++;
                     linha = file.ReadLine();
                 }
@@ -91,8 +92,7 @@ namespace GestaoTCC
                 Console.Clear();
                 Console.WriteLine(e.Message);
                 Console.Write("Pressione enter para reiniciar");
-            }
-            
+            }  
         }
 
         public static void readFileOrientadores(string path)
@@ -136,10 +136,10 @@ namespace GestaoTCC
 
         public static string[] transformArray(string[] array)
         {
-            string []transform = new string[array.Length-1];
+            string []transform = new string[array.Length];
             for (int i = 0; i < array.Length; i++)
             {
-                if (i > 0) transform[i - 1] = array[i];
+                transform[i] = array[i];
             }
             return transform;
         }
