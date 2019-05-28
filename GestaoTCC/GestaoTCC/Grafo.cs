@@ -64,11 +64,19 @@ namespace GestaoTCC
 
         public void buildGroups()
         {
+            //pontos importantes//
+
+            /*
+             * O número de grupos deve ser igual ao número de professores
+             * Caso nao tenha similaridade = 0, alocar para o que tiver maior aproximação
+             * Implementar ideia de tuplas
+             */
+
             Aluno aluno = this.getMostClustering();
             Grupo grupo = new Grupo();
-            
-            grupo.Integrantes.Add(aluno);
+
             aluno.IsAlocated = true;
+            grupo.Integrantes.Add(aluno);
 
             foreach (var integrante in Program.listAlunos)
             {
@@ -96,13 +104,14 @@ namespace GestaoTCC
         public Aluno getMostClustering()
         {
             Aluno bigCluster = null;
-            int value = int.MinValue;
+            double value = double.MinValue;
 
             foreach (var aluno in Program.listAlunos)
             {
                 if(aluno.Cluster > value && !aluno.IsAlocated)
                 {
                     bigCluster = aluno;
+                    value = aluno.Cluster;
                 }
             }
             return bigCluster;

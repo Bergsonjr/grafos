@@ -25,7 +25,9 @@ namespace GestaoTCC
             this.orientador = orientador;
         }
 
-        public Grupo() { }
+        public Grupo() {
+            this.integrantes = new List<Aluno>();
+        }
 
         public void ImprimeGrupo()
         {
