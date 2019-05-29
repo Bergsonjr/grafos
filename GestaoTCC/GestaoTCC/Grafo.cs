@@ -18,17 +18,7 @@ namespace GestaoTCC
         //implementar algoritmos aqui
         public void setTuplas()
         {
-            foreach (var prof in Program.listProf)
-            {
-                Grupo group = new Grupo(prof);
-                foreach (var aluno in Program.listAlunos)
-                {
-                    //implementar add de acordo com a matriz dissimilaridade
-                    //implementar algoritmo de prim
-                    group.Integrantes.Add(aluno);
-                }
-                //Program.gruposTCC.Add(group);
-            }
+            
         }
 
         public void setClusters()
@@ -115,6 +105,23 @@ namespace GestaoTCC
                 }
             }
             return bigCluster;
+        }
+
+        public void setHeadGroups()
+        {
+            int i = 0;
+            //setar os principais do grupo de acordo com a quantidade de professores
+            while (Program.listGrupos.Count < Program.listProf.Count)
+            {
+                Aluno head = this.getMostClustering();
+                Grupo grupo = new Grupo();
+
+                grupo.Orientador = Program.listProf[i];
+                grupo.Integrantes.Add(head);
+
+                Program.listGrupos.Add(grupo);
+                i++;
+            }
         }
     }
 }
