@@ -75,6 +75,16 @@ namespace GestaoTCC
                     }
                 }
             }
+
+            this.rebuildGroups();
+        }
+
+        public void rebuildGroups()
+        {
+            if (!allClassmateIsAlocated())
+            {
+                //alocar alunos nao alocados de acordo com a aproximidade
+            }
         }
 
         public Aluno getMostClustering()
@@ -109,6 +119,18 @@ namespace GestaoTCC
                 Program.listGrupos.Add(grupo);
                 i++;
             }
+        }
+
+        public bool allClassmateIsAlocated()
+        {
+            foreach (var aluno in Program.listAlunos)
+            {
+                if (!aluno.IsAlocated)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }
