@@ -62,31 +62,17 @@ namespace GestaoTCC
              * Implementar ideia de tuplas
              */
 
-            Aluno aluno = this.getMostClustering();
-            Grupo grupo = new Grupo();
+            this.setHeadGroups();
 
-            aluno.IsAlocated = true;
-            grupo.Integrantes.Add(aluno);
-
-            foreach (var integrante in Program.listAlunos)
+            for (int i = 0; i < Program.listGrupos.Count; i++)
             {
-                foreach (var pesquisa in Program.listPesq)
+                foreach (var aluno in Program.listAlunos)
                 {
-                    if (pesquisa.Similaridade[integrante.Cod_pesq].Equals(0) && !integrante.IsAlocated)
+                    if (!aluno.IsAlocated && Program.listPesq[aluno.Cod_pesq - 1].Similaridade[Program.listGrupos[i].Integrantes[0].Cod_pesq - 1].Equals(0))
                     {
-                        integrante.IsAlocated = true;
-                        grupo.Integrantes.Add(integrante);
+                        aluno.IsAlocated = true;
+                        Program.listGrupos[i].Integrantes.Add(aluno);
                     }
-                }
-            }
-            Program.listGrupos.Add(grupo);
-
-            foreach (var classmate in Program.listAlunos)
-            {
-                if (!classmate.IsAlocated)
-                {
-                    //this.IsFull = false;
-                    this.buildGroups();
                 }
             }
         }
@@ -116,6 +102,7 @@ namespace GestaoTCC
                 Aluno head = this.getMostClustering();
                 Grupo grupo = new Grupo();
 
+                head.IsAlocated = true;
                 grupo.Orientador = Program.listProf[i];
                 grupo.Integrantes.Add(head);
 

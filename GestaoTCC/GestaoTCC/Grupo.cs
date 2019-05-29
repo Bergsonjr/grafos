@@ -33,14 +33,14 @@ namespace GestaoTCC
         {
             foreach (var grupo in Program.listGrupos)
             {
-                Console.WriteLine(" Orientador: \n" + grupo.Orientador.Nome);
-                Console.WriteLine("\n Alunos: ");
+                Console.WriteLine(" Orientador: " + grupo.Orientador.Nome);
+                Console.WriteLine(" Alunos: ");
                 foreach (var aluno in grupo.Integrantes)
                 {
-                    Console.WriteLine(aluno.Nome);
+                    Console.WriteLine(" - " + aluno.Nome);
                 }
+                Console.WriteLine("------------------------------");
             }
-            Console.WriteLine("\n -----------------");
         }
     }
 }
