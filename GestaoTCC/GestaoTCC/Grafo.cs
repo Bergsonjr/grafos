@@ -81,10 +81,44 @@ namespace GestaoTCC
 
         public void rebuildGroups()
         {
+            Aluno aluno = getNotAlocated();
             if (!allClassmateIsAlocated())
             {
                 //alocar alunos nao alocados de acordo com a aproximidade
+                if(aluno != null)
+                {
+                    for (int i = 0; i < 100; i += 10)
+                    {
+                        foreach (var grupo in Program.listGrupos)
+                        {
+                            if (Program.listPesq[grupo.Integrantes.First().Cod_pesq - 1].Similaridade[aluno.Cod_pesq - 1] > 0 &&
+                                Program.listPesq[grupo.Integrantes.First().Cod_pesq - 1].Similaridade[aluno.Cod_pesq - 1] < i &&
+                                !aluno.IsAlocated)
+                            {
+                                aluno.IsAlocated = true;
+                                grupo.Integrantes.Add(aluno);
+                            }
+                        }
+                    }
+                    rebuildGroups();
+                }
+                else
+                {
+                    return;
+                }
             }
+        }
+
+        public Aluno getNotAlocated()
+        {
+            foreach (var aluno in Program.listAlunos)
+            {
+                if (!aluno.IsAlocated)
+                {
+                    return aluno;
+                }
+            }
+            return null;
         }
 
         public Aluno getMostClustering()
@@ -127,10 +161,10 @@ namespace GestaoTCC
             {
                 if (!aluno.IsAlocated)
                 {
-                    return true;
+                    return false;
                 }
             }
-            return false;
+            return true;
         }
     }
 }
